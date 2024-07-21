@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rogue Mouse Game with Rainbow Confetti</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden; /* Hide scrollbars */
+        cursor: none; /* Hide default cursor */
+        background-color: #f0f0f0;
+        font-family: 'Georgia', serif; /* New York Times style font */
+    }
+
+    #cursor {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 50%;
+        pointer-events: none; /* Disable interaction with cursor */
+    }
+
+    #finish-line {
+        position: absolute;
+        bottom: 50px; /* Move up by 50px from the bottom */
+        right: 10px;
+        width: auto;
+        min-width: 160px; /* Adjust width to fit text */
+        height: auto;
+        padding: 5px;
+        background-color: yellow;
+        border: 2px solid black;
+        font-family: Georgia, serif;
+        font-size: 18px;
+        text-align: center;
+        line-height: 1.4; /* Adjust line height as needed */
+        white-space: nowrap; /* Prevent text wrapping */
+        z-index: 0; /* Ensure it's behind the cursor */
+    }
+
+    #info {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-family: Georgia, serif;
+        font-size: 18px;
+    }
+
+    /* Progress bar styles */
+    .progress-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        background-color: #ccc;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background-color: green;
+        width: 0%;
+    }
+
+    /* Confetti animation */
+    #confetti-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; /* Ensure confetti is above other elements */
+        pointer-events: none; /* Prevent interaction with confetti */
+    }
+
+    .confetti {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        z-index: 1; /* Ensure confetti is above other elements */
+        pointer-events: none; /* Prevent interaction with confetti */
+        animation: confetti-fall 3s ease-out infinite;
+    }
+
+    @keyframes confetti-fall {
+        0% {
+            transform: translateY(-100vh) rotateZ(0deg);
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotateZ(720deg);
+            opacity: 0;
+        }
+    }
+
+    .confetti.color1 {
+        background-color: #f44336; /* Red */
+    }
+
+    .confetti.color2 {
+        background-color: #2196f3; /* Blue */
+    }
+
+    .confetti.color3 {
+        background-color: #4caf50; /* Green */
+    }
+
+    .confetti.color4 {
+        background-color: #ff9800; /* Orange */
+    }
+
+    .confetti.color5 {
+        background-color: #9c27b0; /* Purple */
+    }
+
+    .confetti.color6 {
+        background-color: #ffeb3b; /* Yellow */
+    }
+
+</style>
+</head>
+<body>
+<div id="info">Time taken: <span id="timeTaken">0.00</span> seconds</div>
+<div id="cursor"></div>
+<div id="finish-line">Move red dot here</div>
+
+<!-- Progress bar -->
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- Confetti container -->
+<div id="confetti-container"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var cursor = document.getElementById('cursor');
+        var finishLine = document.getElementById('finish-line');
+        var info = document.getElementById('info');
+        var timeTaken = document.getElementById('timeTaken');
+        var progressBar = document.getElementById('progressBar');
+        var confettiContainer = document.getElementById('confetti-container');
+        var startTime = null;
+        var gameStarted = false;
+        var gameDuration = 73000; // Adjusted game duration in milliseconds
+        var screenWidth = window.innerWidth;
+        var screenHeight = window.innerHeight;
+
+        // Event listener for mouse movement
+        document.addEventListener('mousemove', function(event) {
+            if (!gameStarted) {
+                startTime = Date.now();
+                gameStarted = true;
+            }
+
+            var cursorX = event.pageX;
+            var cursorY = event.pageY;
+
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+
+            // Update progress bar
+            var elapsedTime = Date.now() - startTime;
+            var progress = (elapsedTime / gameDuration) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Check if cursor reaches finish line
+            var finishLineRect = finishLine.getBoundingClientRect();
+            if (cursorX >= finishLineRect.left && cursorY >= finishLineRect.top) {
+                var elapsedTimeSeconds = (elapsedTime / 1000).toFixed(2);
+                timeTaken.textContent = elapsedTimeSeconds + ' seconds';
+                celebrate();
+            }
+        });
+
+        // Function to create confetti animation
+        function celebrate() {
+            confettiContainer.innerHTML = ''; // Clear any existing confetti
+
+            var numConfetti = 100; // Number of confetti particles
+
+            for (var i = 0; i < numConfetti; i++) {
+                var confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.classList.add('color' + getRandomInt(1, 6)); // Random color class
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.top = Math.random() * window.innerHeight + 'px';
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        // Helper function to get random integer between min (inclusive) and max (inclusive)
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    });
+</script>
+</body>
+</html>
