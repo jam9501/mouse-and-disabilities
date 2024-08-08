@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integrated Games</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Georgia', serif;
+        background-color: #f0f0f0;
+        overflow-x: hidden;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .game-container {
+        width: 49%;
+        height: 600px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .game {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: visible;
+        border: 2px solid black;
+        background-color: #f0f0f0;
+    }
+
+    .game iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        font-family: 'Georgia', serif;
+        font-weight: normal;
+    }
+
+    .scrollable-section {
+        width: 100%;
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        line-height: 1.6;
+        box-sizing: border-box;
+    }
+
+    .scrollable-section p {
+        margin: 0;
+    }
+
+    .game-header {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Game 1: Rogue Mouse Game with Rainbow Confetti -->
+    <div class="game-container">
+        <div class="game">
+            <div class="game-header">Try moving the red dot to the yellow box.</div>
+            <iframe src="rainbow.html" frameborder="0"></iframe>
+        </div>
+    </div>
+
+    <!-- Game 2: Rogue Mouse Game -->
+    <div class="game-container">
+        <div class="game">
+            <div class="game-header">Now, try doing the same thing, but with this red dot.</div>
+            <iframe src="testdis.html" frameborder="0"></iframe>
+        </div>
+    </div>
+
+   <!-- Scrollable paragraph section -->
+   <div class="scrollable-section">
+       <p>Leah Findlater, Karyn Moffatt, Jon E. Froehlich, Meethu Malu, Joan Zhang from the University of Maryland researched touchscreen accessibility for users with motor impairments in 2017. The study examined how people with motor disabilities navigate web pages using mouse and touchpad interfaces, asking participants to perform controlled experiments to assess how motor impairments influence usability. The researchers then performed the same experimental tasks on individuals without motor impairments. The raw data can be found here: <a href="https://github.com/leahkf/mouseandtouchinput" target="_blank">https://github.com/leahkf/mouseandtouchinput</a>. By uploading the data in Python, and calculating the average start and end times of each demographic, I found it took participants with motor disabilities twice as long to perform dragging movements with a mouse than participants without a motor disability. On average, it took a participant with motor disability about 73 seconds, while it took a person without a motor disability about 41 seconds. This game mimics a person with a motor disability's experience navigating a webpage with a mouse.</p>
+   </div>
+
+</div>
+
+</body>
+</html>
