@@ -1,9 +1,3 @@
-# mouse-and-disabilities
-## For the completed interactives, download and visit mouse.html. 
-
-## testdis.html is the interactive mimicking users with a motor disability. 
-
-## rainbow.html is the interactive with no rogue interfaces. 
 
 ## The data analysis is found in the mouse_data notebook. 
 
